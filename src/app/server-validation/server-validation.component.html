@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="section">
+    <h2>Add Servers</h2>
+    <div>
+      <input #serverName type="text" placeholder="Server Name">
+      <button (click)="addServer(serverName.value); serverName.value=''">Add Server</button>
+    </div>
+    <div *ngIf="servers.length > 0">
+      <h3>Servers to Validate:</h3>
+      <ul>
+        <li *ngFor="let server of servers">{{ server.name }}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="section">
+    <h2>Sequential Validation</h2>
+    <div>
+      <button [disabled]="servers.length === 0 || validationInProgress" (click)="validateServers()">Validate Servers</button>
+    </div>
+    <div *ngIf="validationInProgress">
+      <p>Validation in progress...</p>
+    </div>
+    <div *ngIf="servers.length > 0 && !validationInProgress">
+      <h3>Validation Results:</h3>
+      <p>Time taken: {{ validationTimeSequential }} seconds</p>
+      <ul>
+        <li *ngFor="let server of servers">{{ server.name }} - {{ server.valid ? 'Valid' : 'Invalid' }}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="section">
+    <h2>Parallel Validation (Backend)</h2>
+    <div>
+      <button [disabled]="servers.length === 0 || validationInProgressParallelBackend" (click)="validateServersParallelBackend()">Validate Servers</button>
+    </div>
+    <div *ngIf="validationInProgressParallelBackend">
+      <p>Validation in progress...</p>
+    </div>
+    <div *ngIf="serversParallelBackend.length > 0 && !validationInProgressParallelBackend">
+      <h3>Validation Results:</h3>
+      <p>Time taken: {{ validationTimeParallelBackend }} seconds</p>
+      <ul>
+        <li *ngFor="let server of serversParallelBackend">{{ server.name }} - {{ server.valid ? 'Valid' : 'Invalid' }}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="section">
+    <h2>Parallel Validation (Frontend)</h2>
+    <div>
+      <button [disabled]="servers.length === 0 || validationInProgressParallelFrontend" (click)="validateServersParallelFrontend()">Validate Servers</button>
+    </div>
+    <div *ngIf="validationInProgressParallelFrontend">
+      <p>Validation in progress...</p>
+    </div>
+    <div *ngIf="serversParallelFrontend.length > 0 && !validationInProgressParallelFrontend">
+      <h3>Validation Results:</h3>
+      <p>Time taken: {{ validationTimeParallelFrontend }} seconds</p>
+      <ul>
+        <li *ngFor="let server of serversParallelFrontend">{{ server.name }} - {{ server.valid ? 'Valid' : 'Invalid' }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
